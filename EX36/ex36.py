@@ -1,12 +1,6 @@
 from sys import exit
 
-passed = False
-
-nishant_passed = False
-gotz_passed = False
-jonathan_passed = False
-
-nishant_text = """
+nashint_text = """
 For your topic you would really have to take into account that the women have been underestiminated in coputerscience
 in the book "When computers were women" it is pointed out really good that women have been a major part in the development of computers
 and also that the tasks that computers do today were excecuted by women. And Women were also called computers and so on and so forth.
@@ -62,7 +56,13 @@ Yes or No?
 """
 
 
-def start_room(nishant_passed, gotz_passed, jonathan_passed):
+def start_room(gotz, nashint, jonathan, passed):
+    nashint_passed = nashint
+    gotz_passed = gotz
+    jonathan_passed = jonathan
+    local_passed = passed
+
+
     print "You are in a big, bright room with many people"
     print "They are all talking in Denglish and you do not understand a whole sentence."
     print "There are four doors but the fourth is locked."
@@ -71,21 +71,36 @@ def start_room(nishant_passed, gotz_passed, jonathan_passed):
     while True:
         door = raw_input("> ")
         if door == "1":
-            nishant_room(nishant_passed)
+
+            nashint_room(gotz_passed, nashint_passed, jonathan_passed, local_passed)
+
         elif door == "2":
-            jonathan_room(jonathan_passed)
+
+            jonathan_room(gotz_passed, nashint_passed, jonathan_passed, local_passed)
+
         elif door == "3":
-            gotz_room(gotz_passed, nishant_passed, jonathan_passed)
-        elif door == "4" and passed != True:
+
+            gotz_room(gotz_passed, nashint_passed, jonathan_passed, local_passed)
+
+        elif door == "4" and local_passed != True:
+
             print "This door is locked!"
-        elif door == "4" and passed == True:
+
+        elif door == "4" and local_passed == True:
+
             holy_room()
+
         else:
+
             print "Choose a door or you will fail and will never get back here!"
 
 
-def nishant_room(nishant_passed):
-    if nishant_passed != True:
+def nashint_room(gotz, nashint, jonathan, passed):
+    nashint_passed = nashint
+    gotz_passed = gotz
+    jonathan_passed = jonathan
+    local_passed = passed
+    if nashint_passed != True:
         print "You are in a room with very loud indian music."
         print "An indian looking person is sitting inbetween a mountain of donuts and donut boxes."
         print "In front of him is a big Notebook."
@@ -97,30 +112,35 @@ def nishant_room(nishant_passed):
         question = raw_input("> ")
 
         if "brief" in question or "short" in question:
-            nishant_answer(True)
+            nashint_answer(True, gotz_passed, nashint_passed, jonathan_passed, local_passed)
         else:
-            nishant_answer(False)
+            nashint_answer(False, gotz_passed, nashint_passed, jonathan_passed, local_passed)
     else:
-        nishant_answer(True)
+        nashint_answer(True, gotz_passed, nashint_passed, jonathan_passed, local_passed)
 
 
 
-def nishant_answer(short):
+def nashint_answer(short, gotz, nashint, jonathan, passed):
+    short_local = short
+    gotz_passed = gotz
+    nashint_passed = nashint
+    jonathan_passed = jonathan
+    local_passed = passed
     if short == False:
-        print nishant_text
+        print nashint_text
         while True:
             repeat = raw_input("> ")
             if repeat == "Yes":
-                nishant_answer(False)
+                nashint_answer(False, gotz_passed, nashint_passed, jonathan_passed, local_passed)
             elif repeat == "No":
-                nishant_answer(True)
+                nashint_answer(True, gotz_passed, nashint_passed, jonathan_passed, local_passed)
             else:
                 print "I have no idea what you said!"
 
     else:
         print "I think your topic is good. Work on that and read 400 pages until tomorrow"
         print "Congratulation! You passed this Challenge!"
-        passed = True
+        nashint_passed = True
         print "There are four doors:"
         print "But the fourt door is locked. Which door do you want to enter?"
 
@@ -129,11 +149,11 @@ def nishant_answer(short):
         while True:
             door = raw_input("> ")
             if door == "1":
-                start_room(True, gotz_passed, jonathan_passed)
+                start_room(gotz_passed, nashint_passed, jonathan_passed, local_passed)
             elif door == "2":
-                jonathan_room(jonathan_passed)
+                jonathan_room(gotz_passed, nashint_passed, jonathan_passed, local_passed)
             elif door == "3":
-                gotz_room(gotz_passed, nishant_passed, jonathan_passed)
+                gotz_room(gotz_passed, nashint_passed, jonathan_passed, local_passed)
             elif door == "4" and passed != True:
                 print "This door is locked!"
             elif door == "4" and passed == True:
@@ -144,13 +164,17 @@ def nishant_answer(short):
 
 
 
-def gotz_room(gotz_passed, nishant_passed, jonathan_passed):
+def gotz_room(gotz, nashint, jonathan, passed):
+    nashint_passed = nashint
+    gotz_passed = gotz
+    jonathan_passed = jonathan
+    local_passed = passed
     if gotz_passed == False:
-        if nishant_passed == False and jonathan_passed == False:
+        if nashint_passed == False and jonathan_passed == False:
             print "You first have to passed the other two Rooms."
-        elif nishant_passed == False and jonathan_passed == True:
-            print "You have to pass nishants challenge first"
-        elif nishant_passed == True and jonathan_passed == False:
+        elif nashint_passed == False and jonathan_passed == True:
+            print "You have to pass nashints challenge first"
+        elif nashint_passed == True and jonathan_passed == False:
             print "You have to pass jonathans challenge first"
         else:
             print "You have now entered a room which is very chaotic."
@@ -167,8 +191,10 @@ def gotz_room(gotz_passed, nishant_passed, jonathan_passed):
             while True:
                 answer_gotz = raw_input("> ")
                 if answer_gotz == "1":
-                    print "I would do everything for a beer right now. Your exam is done in /n 3...2...1... DONE!"
+                    print "I would do everything for a beer right now. Your exam is done in \n 3...2...1... DONE!"
+                    passed = True
                     gotz_passed = True
+                    enter_holy_room()
                 elif answer_gotz == "2":
                     print "Just caaaaaaaaalm down and relax."
                 elif answer_gotz == "3":
@@ -178,20 +204,26 @@ def gotz_room(gotz_passed, nishant_passed, jonathan_passed):
                 else:
                     print "I have no idea what you meant! Try again!"
 
-
-
     else:
-        print "You can now enter the fourth room. Do you want to?"
-        enter_room = raw_input("> ")
-
-        if enter_room == True:
-            holy_room()
-        else :
-            print "I don't care what you want to!"
-            holy_room()
+        enter_holy_room()
 
 
-def jonathan_room(jonathan_passed):
+def enter_holy_room():
+    print "You can now enter the fourth room. Do you want to?"
+    enter_room = raw_input("> ")
+
+    if enter_room == "Yes":
+        holy_room()
+    else :
+        print "I don't care what you want to!"
+        holy_room()
+
+
+def jonathan_room(gotz, nashint, jonathan, passed):
+    jonathan_passed = jonathan
+    gotz_passed = gotz
+    nashint_passed = nashint
+    local_passed = passed
     if jonathan_passed == False:
         print "You hear loud techno music and see a guy standing behind his MacBook."
         print "He is typing chaoticly on it."
@@ -217,19 +249,17 @@ def jonathan_room(jonathan_passed):
                 print "TRY AGAIN!"
             else:
                 print "I have no idea what you mean!"
-
-        passed = True
         print "There are four doors:"
         print "But the fourt door is locked. Which door do you want to enter?"
 
         while True:
             door = raw_input("> ")
             if door == "1":
-                start_room(True, gotz_passed, jonathan_passed)
+                start_room(gotz_passed, nashint_passed, jonathan_passed, local_passed)
             elif door == "2":
-                nishant_room(nishant_passed)
+                nashint_room(gotz_passed, nashint_passed, jonathan_passed, local_passed)
             elif door == "3":
-                gotz_room(gotz_passed, nishant_passed, jonathan_passed)
+                gotz_room(gotz_passed, nashint_passed, jonathan_passed, local_passed)
             elif door == "4" and passed != True:
                 print "This door is locked!"
             elif door == "4" and passed == True:
@@ -239,14 +269,15 @@ def jonathan_room(jonathan_passed):
 
     else:
         print "You can now enter another room."
+        print "Which room do you want to enter?"
         while True:
             door = raw_input("> ")
             if door == "1":
-                start_room(True, gotz_passed, jonathan_passed)
+                start_room(gotz_passed, nashint_passed, jonathan_passed, local_passed)
             elif door == "2":
-                nishant_room(nishant_passed)
+                nashint_room(gotz_passed, nashint_passed, jonathan_passed, local_passed)
             elif door == "3":
-                gotz_room(gotz_passed, nishant_passed, jonathan_passed)
+                gotz_room(gotz_passed, nashint_passed, jonathan_passed, local_passed)
             elif door == "4" and passed != True:
                 print "This door is locked!"
             elif door == "4" and passed == True:
@@ -260,4 +291,7 @@ def holy_room():
     print "In the middle of the room you see your bachelor degree flying."
     exit(0)
 
-start_room(False, False, False)
+def start():
+    start_room(False, False, False, False)
+
+start()
