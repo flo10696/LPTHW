@@ -22,6 +22,7 @@ class Engine(object):
 
         while current_scene != last_scene:
             next_scene_name = current_scene.enter(self.name, self.bag)
+            self.bag = next_scene_name[2]
             self.name = next_scene_name[1]
             next_scene_name = next_scene_name[0]
             current_scene = self.scene_map.next_scene(next_scene_name)

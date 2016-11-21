@@ -4,7 +4,7 @@ from random import randint
 class Bag(object):
 
     def __init__(self):
-        self.content = ['Axe']
+        self.content = ['axe']
 
     def add(self, tool):
         self.content.append(tool)

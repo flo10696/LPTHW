@@ -27,15 +27,22 @@ class CaveEntry(Scene):
         print "What do you do?"
         action = raw_input("> ")
 
-        while action == "bag":
+        while "bag" in action:
 
             bag.show()
             action = raw_input("> ")
 
         if action == "use axe":
             print "You can cut the lianas and enter the cave."
+            self.bag.remove("axe")
 
-            return 'cave', self.name
+            return 'cave', self.name, self.bag
+
+        elif "go" or "run" in action:
+            print "Only an idiot runs against a wall."
+            print "Maybe you should think about that..."
+            print "Because you are dead now."
+            return 'death', self.name, self.bag
 
 class Cave(Scene):
 
@@ -55,19 +62,47 @@ class Cave(Scene):
         counter  = 0
         while action != "look around":
             if counter < 5:
-                print "Maybee try to do something else!"
+                print "Maybe try to do something else!"
                 action = raw_input("> ")
                 counter = counter + 1
-            else:
+
+                if "go" in action:
+                    print "Because you did not see anything"
+                    print "you ran against a rock and died!"
+                    return 'death'
+
+                while "bag" in action:
+
+                    bag.show()
+                    action = raw_input("> ")
+
+
+                if "wait" in action:
+                    print "You can wait when you are dead!"
+                    print "You coward."
+            elif "look around" not in action:
                 print "You could try to look around ;)"
                 action  = raw_input("> ")
 
-        if action == "look around":
-            print "You found a torch and put it in your bad!"
+        if "look around" in action:
+            print "You found a torch and three rocks and put it in your bad!"
             self.bag.add("torch")
+            self.bag.add("rock light")
+            self.bag.add("rock medium")
+            self.bag.add("rock heavy")
 
         print "And now?"
+        action == raw_input("> ")
 
+        while "bag" in action:
+
+            bag.show()
+            action = raw_input("> ")
+
+        if "lit torch" in action:
+            print "With the torch you can see some meters"
+            print "into the cave and you go forward."
+            print ""
 
 
 
