@@ -27,7 +27,7 @@ class Engine(object):
             next_scene_name = next_scene_name[0]
             current_scene = self.scene_map.next_scene(next_scene_name)
 
-        current_scene.enter(name, self.bag)
+        current_scene.enter(self.name, self.bag)
 
 
 class Map(object):

@@ -13,5 +13,9 @@ class Bag(object):
         self.content.remove(tool)
 
     def show(self):
-        for tools in self.content:
-            print tools
+        if self.content != []:
+            for tools in self.content:
+                print tools
+
+        else:
+            print "Your bag is empty!"
