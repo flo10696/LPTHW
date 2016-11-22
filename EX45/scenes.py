@@ -27,22 +27,28 @@ class CaveEntry(Scene):
         print "What do you do?"
         action = raw_input("> ")
 
-        while "bag" in action:
+        while "use axe" not in action:
 
-            bag.show()
-            action = raw_input("> ")
+            if "bag" in action:
 
-        if action == "use axe":
-            print "You can cut the lianas and enter the cave."
-            self.bag.remove("axe")
+                bag.show()
+                action = raw_input("> ")
 
-            return 'cave', self.name, self.bag
+            if action == "use axe":
+                print "You can cut the lianas and enter the cave."
+                self.bag.remove("axe")
 
-        elif "go" or "run" in action:
-            print "Only an idiot runs against a wall."
-            print "Maybe you should think about that..."
-            print "Because you are dead now."
-            return 'death', self.name, self.bag
+                return 'cave', self.name, self.bag
+
+            elif "go" or "run" in action:
+                print "Only an idiot runs against a wall."
+                print "Maybe you should think about that..."
+                print "Because you are dead now."
+                return 'death', self.name, self.bag
+
+            else:
+                "I have no idea what you mean"
+                action = raw_input("> ")
 
 class Cave(Scene):
 
@@ -102,7 +108,22 @@ class Cave(Scene):
         if "lit torch" in action:
             print "With the torch you can see some meters"
             print "into the cave and you go forward."
-            print ""
+            print "You accidentially step on a latch"
+            print "which releases a huge stone from above your head."
+            print "This stone is now pursuiting you"
+            print "with increasing speed."
+            return 'ballRun', self.name, self.bag
+
+        elif "rock" in action:
+            print "You throw a rock inside the cave and release"
+            print "a huge stone which is behind you."
+            print "It is pursuiting you and you start to run"
+            print "but because you can't see anything you"
+            print "you strumble over the rock you have thrown."
+            print "You die."
+
+            return 'death', self.name, self.bag
+
 
 
 
