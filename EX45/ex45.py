@@ -18,7 +18,7 @@ class Engine(object):
         self.name = raw_input("> ")
         print "All right %s! Let's start our journey!" %self.name
         current_scene = self.scene_map.opening_scene()
-        last_scene = self.scene_map.next_scene('treasureRoom')
+        last_scene = self.scene_map.next_scene('finish‚')
 
         while current_scene != last_scene:
             next_scene_name = current_scene.enter(self.name, self.bag)
@@ -39,6 +39,7 @@ class Map(object):
         'puzzleRoom' : scenes.PuzzleRoom(),
         'treasureRoom' : scenes.TreasureRoom(),
         'death' : scenes.Death(),
+        'finish' : scenes.Finish(),
     }
 
     def __init__(self, start_scene):

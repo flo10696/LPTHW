@@ -75,7 +75,7 @@ class Cave(Scene):
                 if "go" in action:
                     print "Because you did not see anything"
                     print "you ran against a rock and died!"
-                    return 'death'
+                    return 'death', self.name, self.bag
 
                 if "bag" in action:
 
@@ -112,6 +112,7 @@ class Cave(Scene):
                 print "which releases a huge stone from above your head."
                 print "This stone is now pursuiting you"
                 print "with increasing speed."
+                self.bag.remove("torch")
                 return 'ballRun', self.name, self.bag
 
             elif "rock" in action:
@@ -137,6 +138,7 @@ class Cave(Scene):
             print "which releases a huge stone from above your head."
             print "This stone is now pursuiting you"
             print "with increasing speed."
+            self.bag.remove("torch")
             return 'ballRun', self.name, self.bag
 
 
@@ -179,17 +181,90 @@ class PuzzleRoom(Scene):
     def enter(self, name, bag):
         self.bag = bag
         self.name = name
-        if raw_input("> ") == bag:
-            self.bag.show()
-            exit(0)
+        print "A key lays on the top of the altar and you recognize that"
+        print "it is laying on a balanced spot."
+        print "What do you do?"
+        action = "x"
+
+        while "rock medium" not in action:
+            action = raw_input("> ")
+
+            if "bag" in action:
+                self.bag.show()
+
+            elif "rock medium" in action:
+                print "You exchange the key with the medium rock."
+                print "Because it is the same weight nothing happens"
+                print "and you can take the key and put it in your bag."
+                self.bag.add("key")
+                self.bag.remove("rock medium")
+
+                return 'treasureRoom', self.name, self.bag
+
+            elif "rock small" in action:
+                print "You try to exchange the key with"
+                print "the small rock. But the small rock"
+                print "is not heavy enough and because of that"
+                print "a mechanism starts that shoots 42 poisioned"
+                print "arrows at you that all hit you."
+
+                return 'death', self.name, self.bag
+
+            else:
+                print "I have no idea what that means."
+
 
 class TreasureRoom(Scene):
+    def enter(self, name, bag):
+        self.name = name
+        self.bag = bag
+        print "Congratulations you are not standing"
+        print "In front of a huge door."
+        print "What do you do?"
+
+        action = "x"
+
+        while "key" not in action:
+            action = raw_input("> ")
+
+            if "bag" in action:
+                self.bag.show()
+
+            elif "rock small" in action:
+                print "You throw the small rock against the door,"
+                print "it hits it and is returned right back to you."
+                print "It hits your head - you die."
+
+                return 'death', self.name, self.bag
+
+            elif "key" in action:
+                print "You put the key into the lock."
+                print "And you can turn it."
+                print "QQQQIIIIIIEEETZ"
+                print "You can open it."
+                print "You get into the room and find the treasure:"
+                print "It's a toy ape with a little drum on which it is playing."
+
+                return 'finish', self.name, self.bag
+
+            else:
+                print "I have no idea what you mean."
+
+
+class Finish(Scene):
 
     def enter(self, name, bag):
-        pass
+        print "Congratulations %s. You finished this adventure" %name
 
 class Death(Scene):
 
     def enter(self, name, bag):
-        print "You Idiot! You are dead."
+        scenarios = ["You Idiot! You are dead.",
+                    "Woooow, you are dead.",
+                    "Congratulations! - wait - you are dead. Alright no congrats!",
+                    "Yeah, thats not what you wanted right?",
+                    "Ooooooooops",
+                    "An End can also be a beginning - just try again."]
+
+        print scenarios[randint(0, 5)]
         exit(1)
