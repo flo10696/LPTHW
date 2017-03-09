@@ -7,20 +7,20 @@ from PyQt5 import QtCore, QtGui
 
 class Gui(QWidget):
 
-    def __init__(self):
+    def __init__(self, givenController):
         super(Gui, self).__init__()
 
-        self.initUI()
+        self.controller = givenController
 
 
     def initUI(self):
 
         #create Labels:
-
+        panelsize = 300
         # first Label
 
-        self.first = QLabel()
-        self.first.setFixedSize(200, 200)
+        self.first = QLabel('1 time')
+        self.first.setFixedSize(panelsize, panelsize)
 
 
         self.first.setAutoFillBackground(True)
@@ -36,8 +36,8 @@ class Gui(QWidget):
 
         # second Label
 
-        self.second = QLabel('Second')
-        self.second.setFixedSize(200, 200)
+        self.second = QLabel('2 times')
+        self.second.setFixedSize(panelsize, panelsize)
 
         self.second.setAutoFillBackground(True)
         secondPalette = self.second.palette()
@@ -49,8 +49,8 @@ class Gui(QWidget):
 
         #third Label
 
-        self.third = QLabel('Third')
-        self.third.setFixedSize(200, 200)
+        self.third = QLabel('3 times')
+        self.third.setFixedSize(panelsize, panelsize)
 
         self.third.setAutoFillBackground(True)
         thirdPalette = self.third.palette()
@@ -62,8 +62,8 @@ class Gui(QWidget):
 
         # fourth Label
 
-        self.fourth = QLabel('Fourth')
-        self.fourth.setFixedSize(200, 200)
+        self.fourth = QLabel('4 times')
+        self.fourth.setFixedSize(panelsize, panelsize)
 
         self.fourth.setAutoFillBackground(True)
         fourthPalette = self.fourth.palette()
@@ -75,8 +75,8 @@ class Gui(QWidget):
 
         #fivth Label
 
-        self.fivth = QLabel('Fivth')
-        self.fivth.setFixedSize(200, 200)
+        self.fivth = QLabel('5 times')
+        self.fivth.setFixedSize(panelsize, panelsize)
 
         self.fivth.setAutoFillBackground(True)
         fivthPalette = self.fivth.palette()
@@ -88,8 +88,8 @@ class Gui(QWidget):
 
         # sixth Label
 
-        self.sixth = QLabel('Sixth')
-        self.sixth.setFixedSize(200, 200)
+        self.sixth = QLabel('6 times')
+        self.sixth.setFixedSize(panelsize, panelsize)
 
         self.sixth.setAutoFillBackground(True)
         sixthPalette = self.sixth.palette()
@@ -101,8 +101,8 @@ class Gui(QWidget):
 
         # seventh Label
 
-        self.seventh = QLabel('Seventh')
-        self.seventh.setFixedSize(200, 200)
+        self.seventh = QLabel('7 times')
+        self.seventh.setFixedSize(panelsize, panelsize)
 
         self.seventh.setAutoFillBackground(True)
         seventhPalette = self.seventh.palette()
@@ -114,8 +114,8 @@ class Gui(QWidget):
 
         # eigthth Label
 
-        self.eighth = QLabel('Eigthth')
-        self.eighth.setFixedSize(200, 200)
+        self.eighth = QLabel('8 times')
+        self.eighth.setFixedSize(panelsize, panelsize)
 
         self.eighth.setAutoFillBackground(True)
         eighthPalette = self.eighth.palette()
@@ -127,8 +127,8 @@ class Gui(QWidget):
 
         # nineth Label
 
-        self.nineth = QLabel('Nineth')
-        self.nineth.setFixedSize(200, 200)
+        self.nineth = QLabel('9 times')
+        self.nineth.setFixedSize(panelsize, panelsize)
 
         self.nineth.setAutoFillBackground(True)
         ninethPalette = self.nineth.palette()
@@ -140,8 +140,8 @@ class Gui(QWidget):
 
         #tenth Label
 
-        self.tenth = QLabel('Tenth')
-        self.tenth.setFixedSize(200, 200)
+        self.tenth = QLabel('10 times')
+        self.tenth.setFixedSize(panelsize, panelsize)
 
         self.tenth.setAutoFillBackground(True)
         tenthPalette = self.tenth.palette()
@@ -153,8 +153,8 @@ class Gui(QWidget):
 
         # output Label
 
-        self.output = QLabel('This is the Output')
-        self.output.setFixedSize(200, 200)
+        self.output = QLabel('final output')
+        self.output.setFixedSize(panelsize, panelsize)
 
         self.output.setAutoFillBackground(True)
         outputPalette = self.output.palette()
@@ -168,11 +168,15 @@ class Gui(QWidget):
         # create inputWindow
 
         self.inputWindow = QLineEdit()
-        self.inputWindow.setFixedSize(200, 50)
+        self.inputWindow.setFixedSize(250, 100)
         self.inputWindow.setStyleSheet(" font-size: 25px; qproperty-alignment: AlignCenter; font-family: Helvetica;")
 
         self.inputButton = QPushButton("Translate!")
-        self.inputButton.setFixedSize(200, 50)
+        self.inputButton.setFixedSize(250, 80)
+        self.inputButton.clicked.connect(self.translate)
+
+
+
 
 
 
@@ -193,7 +197,7 @@ class Gui(QWidget):
         # create Grid big
 
         grid = QGridLayout()
-        grid.setSpacing(20)
+        grid.setSpacing(0)
 
 
 
@@ -230,11 +234,20 @@ class Gui(QWidget):
         self.show()
 
 
-        #self.labels = [self.first, self.second, self.third, self.fourth, self.fivth, self.sixth, self.seventh, self.eighth, self.nineth, self.tenth, self.output]
+        self.labels = [self.first, self.second, self.third, self.fourth, self.fivth, self.sixth, self.seventh, self.eighth, self.nineth, self.tenth, self.output]
 
+        for x in range(0,11):
+            self.labels[x].setWordWrap(True)
 
     def update(self, fieldNumber, text):
 
-        #self.labels = [self.first, self.second, self.third, self.fourth, self.fivth, self.sixth, self.seventh, self.eighth, self.nineth, self.tenth, self.output]
-
+        print('Gui - update')
         self.labels[fieldNumber].setText(text)
+        self.show()
+
+
+    def translate(self):
+        print("Button clicked")
+        if(self.inputWindow.text() != ''):
+            readText = self.inputWindow.text()
+            self.controller.translate(readText)

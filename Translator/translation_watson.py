@@ -28,16 +28,34 @@ class Translator():
         startLanguage = languageDetection[u'languages'][0][u'language']
 
         for x in range(0, numberOfIterations):
-            languageDetection = self.language_translator.identify(textInput)
-            currentLanguage = languageDetection[u'languages'][0][u'language']
 
-            direction = self.languages[currentLanguage][random.randint(0,len(self.languages[currentLanguage])-1)]
-            textInput = self.language_translator.translate(textInput, model_id= direction)
+            notIdentified = True
+            notAcceptedLanguageCounter = 0
+
+            while (notIdentified):
+
+                languageDetection = self.language_translator.identify(textInput)
+                currentLanguage = languageDetection[u'languages'][notAcceptedLanguageCounter][u'language']
+
+                if currentLanguage in self.languages:
+
+                    direction = self.languages[currentLanguage][random.randint(0,len(self.languages[currentLanguage])-1)]
+                    textInput = self.language_translator.translate(textInput, model_id= direction)
+
+                    notIdentified = False
+                else:
+                    notAcceptedLanguageCounter = notAcceptedLanguageCounter + 1
+                    print(currentLanguage)
+                    print(notAcceptedLanguageCounter)
+                    print('Language not correct identified')
 
         languageDetection = self.language_translator.identify(textInput)
         currentLanguage = languageDetection[u'languages'][0][u'language']
 
+        print(currentLanguage)
+
         if currentLanguage != 'en':
+            print("inIf")
             textInput = self.language_translator.translate(textInput, source = currentLanguage, target='en')
 
         if startLanguage != 'en':
