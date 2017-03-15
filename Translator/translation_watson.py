@@ -25,24 +25,23 @@ class Translator():
                         "de" : ["de-en"]}
 
     def translateInput(self, numberOfIterations, textInput):
+        
         languageDetection = self.language_translator.identify(textInput)
         startLanguage = languageDetection[u'languages'][0][u'language']
         self.lastTargetLanguage = startLanguage
 
         for x in range(0, numberOfIterations):
 
-            print(x)
-
-            direction = self.languages[self.lastTargetLanguage][random.randint(0,len(self.languages[self.lastTargetLanguage])-1)]
+            try:
+                direction = self.languages[self.lastTargetLanguage][random.randint(0,len(self.languages[self.lastTargetLanguage])-1)]
+            except KeyError:
+                return "unable to detect language!"
 
             m = re.match("(.*)(\-)(.*)", direction)
             self.lastTargetLanguage = m.group(3)
             textInput = self.language_translator.translate(textInput, model_id= direction)
 
-
-        print(self.lastTargetLanguage)
         if self.lastTargetLanguage != 'en':
-            print("inIf")
             textInput = self.language_translator.translate(textInput, source = self.lastTargetLanguage, target='en')
 
         if startLanguage != 'en':

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import sys
 from PyQt5.QtWidgets import QWidget, QApplication, QPushButton
 from PyQt5.QtWidgets import QGridLayout, QTextEdit, QLineEdit, QLabel
@@ -8,6 +9,7 @@ from PyQt5 import QtCore, QtGui
 class Gui(QWidget):
 
     def __init__(self, givenController):
+
         super(Gui, self).__init__()
 
         self.controller = givenController
@@ -19,7 +21,7 @@ class Gui(QWidget):
         panelsize = 300
         # first Label
 
-        self.first = QLabel('1 time')
+        self.first = QLabel(u"1 time")
         self.first.setFixedSize(panelsize, panelsize)
 
 
@@ -241,17 +243,17 @@ class Gui(QWidget):
 
     def update(self, fieldNumber, text):
 
-        print('Gui - update')
         self.labels[fieldNumber].setText(text)
         self.show()
 
 
     def translate(self):
-        print("Button clicked")
-        for x in range(0, 10):
+
+        self.update(0, "1 time")
+        for x in range(1, 10):
             text = str(x + 1) + " times"
             self.update(x, text)
-        self.update(10, "final output")    
+        self.update(10, "final output")
 
 
         if(self.inputWindow.text() != ''):
