@@ -248,6 +248,12 @@ class Gui(QWidget):
 
     def translate(self):
         print("Button clicked")
+        for x in range(0, 10):
+            text = str(x + 1) + " times"
+            self.update(x, text)
+        self.update(10, "final output")    
+
+
         if(self.inputWindow.text() != ''):
             readText = self.inputWindow.text()
             self.controller.translate(readText)

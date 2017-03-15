@@ -16,7 +16,9 @@ class Controller():
         sys.exit(self.app.exec_())
 
     def translate(self, readText):
+        self.app.processEvents()
 
         for x in range(0,11):
             print('translate - Controller Iteration: ', x)
             self.gui.update(x, self.translator.translateInput(x+1, readText))
+            self.app.processEvents()

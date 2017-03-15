@@ -1,4 +1,5 @@
 
+import re
 import json
 import random
 from watson_developer_cloud import LanguageTranslatorV2
@@ -26,37 +27,23 @@ class Translator():
     def translateInput(self, numberOfIterations, textInput):
         languageDetection = self.language_translator.identify(textInput)
         startLanguage = languageDetection[u'languages'][0][u'language']
+        self.lastTargetLanguage = startLanguage
 
         for x in range(0, numberOfIterations):
 
-            notIdentified = True
-            notAcceptedLanguageCounter = 0
+            print(x)
 
-            while (notIdentified):
+            direction = self.languages[self.lastTargetLanguage][random.randint(0,len(self.languages[self.lastTargetLanguage])-1)]
 
-                languageDetection = self.language_translator.identify(textInput)
-                currentLanguage = languageDetection[u'languages'][notAcceptedLanguageCounter][u'language']
+            m = re.match("(.*)(\-)(.*)", direction)
+            self.lastTargetLanguage = m.group(3)
+            textInput = self.language_translator.translate(textInput, model_id= direction)
 
-                if currentLanguage in self.languages:
 
-                    direction = self.languages[currentLanguage][random.randint(0,len(self.languages[currentLanguage])-1)]
-                    textInput = self.language_translator.translate(textInput, model_id= direction)
-
-                    notIdentified = False
-                else:
-                    notAcceptedLanguageCounter = notAcceptedLanguageCounter + 1
-                    print(currentLanguage)
-                    print(notAcceptedLanguageCounter)
-                    print('Language not correct identified')
-
-        languageDetection = self.language_translator.identify(textInput)
-        currentLanguage = languageDetection[u'languages'][0][u'language']
-
-        print(currentLanguage)
-
-        if currentLanguage != 'en':
+        print(self.lastTargetLanguage)
+        if self.lastTargetLanguage != 'en':
             print("inIf")
-            textInput = self.language_translator.translate(textInput, source = currentLanguage, target='en')
+            textInput = self.language_translator.translate(textInput, source = self.lastTargetLanguage, target='en')
 
         if startLanguage != 'en':
             textInput = json.dumps(self.language_translator.translate(textInput, source = 'en', target=startLanguage), indent = 2)
